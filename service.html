@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Smart Circuit</title>
+    <style>
+        :root {
+            --primary-color: #970747;
+            --primary-light: #c50960;
+            --primary-dark: #7c0338;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --bg-light: #f9f9f9;
+            --bg-gray: #f1f1f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 28px;
+        } */
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--text-light);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ffccdb;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 24px;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(151, 7, 71, 0.8), rgba(151, 7, 71, 0.9)), url('/api/placeholder/1200/400') center/cover no-repeat;
+            color: var(--text-light);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 60px 0 40px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--primary-color);
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 3px;
+            background-color: var(--primary-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(151, 7, 71, 0.2);
+        }
+
+        .service-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .service-card:hover .service-image img {
+            transform: scale(1.1);
+        }
+
+        .service-content {
+            padding: 25px;
+        }
+
+        .service-content h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .service-content p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-light);
+        }
+
+        .workflow {
+            background-color: var(--bg-gray);
+            padding: 60px 0;
+        }
+
+        .workflow-steps {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .step {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            background-color: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: bold;
+        }
+
+        .step h3 {
+            margin: 15px 0;
+            color: var(--primary-color);
+        }
+
+        .cta {
+            background: linear-gradient(rgba(151, 7, 71, 0.9), rgba(151, 7, 71, 0.8)), url('/api/placeholder/1200/400') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-light {
+            background-color: white;
+            color: var(--primary-color);
+        }
+
+        .btn-light:hover {
+            background-color: #f1f1f1;
+        }
+
+        .testimonials {
+            padding: 60px 0;
+        }
+
+        .testimonial-slider {
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .testimonial-container {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .testimonial {
+            flex: 0 0 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .testimonial-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 3px solid var(--primary-color);
+        }
+
+        .testimonial-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .slider-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .slider-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 10px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        .slider-btn:hover {
+            background-color: var(--primary-light);
+        }
+
+        /* footer {
+            background-color: #333;
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                padding: 20px 0;
+                text-align: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .section-title h2 {
+                font-size: 28px;
+            }
+
+            .service-card {
+                margin-bottom: 20px;
+            }
+
+            .workflow-steps {
+                flex-direction: column;
+            }
+
+            .step {
+                margin-bottom: 40px;
+            }
+        } */
+
+        .footer {
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-light);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+                text-align: center;
+            }
+
+            .nav-links li {
+                margin: 0;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <!-- <div class="logo">
+                    <i class="fas fa-microchip"></i>
+                    <span>Smart Circuit</span>
+                </div> -->
+                <a href="#" class="logo">
+                    <i class="fas fa-microchip"></i>
+                    Smart Circuit
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li> 
+                        <li><a href="product.html">Product</a></li>
+                        <li><a href="service.html" class="active">Service</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                   
+                    
+                </ul>
+                <button class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Our Professional Services</h1>
+            <p>Innovative electrical and smart solutions for residential, commercial, and industrial needs. Discover how our expertise can transform your projects into intelligent systems.</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="container">
+        <div class="section-title">
+            <h2>What We Offer</h2>
+        </div>
+        <div class="services-container">
+            <!-- Service 1 -->
+            <div class="service-card">
+                <div class="service-image">
+                    <img src="/api/placeholder/400/320" alt="Smart Home Automation">
+                </div>
+                <div class="service-content">
+                    <h3>Smart Home Automation</h3>
+                    <p>Transform your home with integrated automation systems. Control lighting, security, temperature, and entertainment systems from your smartphone or voice commands.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Service 2 -->
+            <div class="service-card">
+                <div class="service-image">
+                    <img src="/api/placeholder/400/320" alt="Commercial Electrical">
+                </div>
+                <div class="service-content">
+                    <h3>Commercial Electrical</h3>
+                    <p>Complete electrical solutions for businesses including installation, maintenance, emergency repairs, and energy efficiency upgrades tailored to your specific needs.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Service 3 -->
+            <div class="service-card">
+                <div class="service-image">
+                    <img src="/api/placeholder/400/320" alt="Industrial Automation">
+                </div>
+                <div class="service-content">
+                    <h3>Industrial Automation</h3>
+                    <p>Increase productivity and efficiency with our industrial automation solutions. We design and implement advanced control systems for manufacturing processes.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Service 4 -->
+            <div class="service-card">
+                <div class="service-image">
+                    <img src="/api/placeholder/400/320" alt="Energy Management">
+                </div>
+                <div class="service-content">
+                    <h3>Energy Management</h3>
+                    <p>Optimize your energy consumption with smart monitoring systems. Reduce costs and environmental impact while maintaining comfort and productivity.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Service 5 -->
+            <div class="service-card">
+                <div class="service-image">
+                    <img src="/api/placeholder/400/320" alt="Security Systems">
+                </div>
+                <div class="service-content">
+                    <h3>Security Systems</h3>
+                    <p>Protect your property with advanced security systems including CCTV, access control, alarm systems, and remote monitoring solutions for complete peace of mind.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Service 6 -->
+            <div class="service-card">
+                <div class="service-image">
+                    <img src="/api/placeholder/400/320" alt="Electrical Maintenance">
+                </div>
+                <div class="service-content">
+                    <h3>Electrical Maintenance</h3>
+                    <p>Preventive maintenance services to keep your electrical systems running smoothly. Regular inspections, testing, and repairs to avoid costly downtime.</p>
+                    <a href="#" class="btn">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Section -->
+    <section class="workflow">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Process</h2>
+            </div>
+            <div class="workflow-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Consultation</h3>
+                    <p>We begin with a thorough consultation to understand your needs, challenges, and goals for your electrical or smart system project.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Design</h3>
+                    <p>Our engineers create a custom design that addresses your requirements while optimizing efficiency, functionality, and cost-effectiveness.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Implementation</h3>
+                    <p>Our certified technicians professionally install all components, ensuring everything works perfectly according to specifications.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Support</h3>
+                    <p>We provide ongoing maintenance, updates, and support to ensure your systems continue to operate at peak performance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>Client Testimonials</h2>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial-container" id="testimonialContainer">
+                    <div class="testimonial">
+                        <div class="testimonial-image">
+                            <img src="/api/placeholder/80/80" alt="Client">
+                        </div>
+                        <div class="testimonial-text">
+                            "Smart Circuit transformed our office with their commercial automation solution. We've seen a 30% reduction in energy costs and significantly improved workplace efficiency."
+                        </div>
+                        <div class="testimonial-author">Jihan, CEO of TechFirm</div>
+                    </div>
+                    <div class="testimonial">
+                        <div class="testimonial-image">
+                            <img src="/api/placeholder/80/80" alt="Client">
+                        </div>
+                        <div class="testimonial-text">
+                            "The smart home system installed by Smart Circuit has completely changed how we interact with our home. The integration is seamless, and their customer service is exceptional."
+                        </div>
+                        <div class="testimonial-author">Eman, Homeowner</div>
+                    </div>
+                    <div class="testimonial">
+                        <div class="testimonial-image">
+                            <img src="/api/placeholder/80/80" alt="Client">
+                        </div>
+                        <div class="testimonial-text">
+                            "As a manufacturing company, we needed reliable industrial automation. Smart Circuit delivered beyond our expectations, increasing our production efficiency by 40%."
+                        </div>
+                        <div class="testimonial-author">Salar, Production Manager</div>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-btn prev-btn" id="prevBtn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-btn next-btn" id="nextBtn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Transform Your Electrical Systems?</h2>
+            <p>Contact us today for a free consultation. Our experts are ready to help you design the perfect solution for your residential, commercial, or industrial needs.</p>
+            <a href="#" class="btn btn-light">Request a Quote</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <!-- <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Smart Circuit</h3>
+                    <p>Innovative electrical and smart solutions for modern needs. Quality service since 2010.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Smart Home Automation</a></li>
+                        <li><a href="#">Commercial Electrical</a></li>
+                        <li><a href="#">Industrial Automation</a></li>
+                        <li><a href="#">Energy Management</a></li>
+                        <li><a href="#">Security Systems</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Projects</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Tech Street, City, Country</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 890</li>
+                        <li><i class="fas fa-envelope"></i> info@smartcircuit.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 8:00 AM - 6:00 PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Smart Circuit. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer> -->
+
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Smart Circuit</h3>
+                    <p>Revolutionizing smart technology for homes and businesses.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li> 
+                        <li><a href="product.html">Product</a></li>
+                        <li><a href="service.html">Service</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li>Email: info@smartcircuit.com</li>
+                        <li>Phone: +1 (555) 123-4567</li>
+                        <li>Address: 123 Tech Lane</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Smart Circuit. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Testimonial Slider
+        const testimonialContainer = document.getElementById('testimonialContainer');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        let slideIndex = 0;
+        const testimonials = document.querySelectorAll('.testimonial');
+        const totalSlides = testimonials.length;
+
+        // Initialize the slider
+        function updateSlider() {
+            testimonialContainer.style.transform = `translateX(-${slideIndex * 100}%)`;
+        }
+
+        // Event listeners for slider buttons
+        prevBtn.addEventListener('click', () => {
+            if (slideIndex > 0) {
+                slideIndex--;
+            } else {
+                slideIndex = totalSlides - 1;
+            }
+            updateSlider();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            if (slideIndex < totalSlides - 1) {
+                slideIndex++;
+            } else {
+                slideIndex = 0;
+            }
+            updateSlider();
+        });
+
+        // Auto slide every 5 seconds
+        setInterval(() => {
+            slideIndex = (slideIndex < totalSlides - 1) ? slideIndex + 1 : 0;
+            updateSlider();
+        }, 5000);
+
+        // Scroll Animation
+        window.addEventListener('scroll', () => {
+            const serviceCards = document.querySelectorAll('.service-card');
+            serviceCards.forEach(card => {
+                const cardPosition = card.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.3;
+                
+                if (cardPosition < screenPosition) {
+                    card.style.opacity = 1;
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        // Contact Form Validation (if added later)
+        const validateForm = () => {
+            // Form validation code would go here
+            return false; // Prevent form submission for demo
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+</body>
+</html>
